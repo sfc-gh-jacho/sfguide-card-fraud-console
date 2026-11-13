@@ -1,0 +1,39 @@
+definition_version: 2
+entities:
+  fraud_console:
+    type: streamlit
+    identifier:
+      name: CARD_FRAUD_CONSOLE
+      database: FRAUD_DEMO_DB
+      schema: CARDS
+    query_warehouse: FRAUD_WH
+    runtime_name: SYSTEM$ST_CONTAINER_RUNTIME_PY3_11
+    compute_pool: SYSTEM_COMPUTE_POOL_CPU            # your account's DEFAULT_STREAMLIT_COMPUTE_POOL
+    external_access_integrations:
+      - PYPI_ACCESS_INTEGRATION                      # installs the pinned packages in pyproject.toml
+    main_file: streamlit_app.py
+    artifacts:
+      - streamlit_app.py
+      - pyproject.toml
+      - .streamlit/config.toml
+      - app_pages/about.py
+      - app_pages/case.py
+      - app_pages/feed.py
+      - app_pages/governance.py
+      - app_pages/overview.py
+      - app_pages/patterns.py
+      - app_pages/queue.py
+      - app_pages/tuning.py
+      - fraud/__init__.py
+      - fraud/ai.py
+      - fraud/data.py
+      - fraud/logic.py
+      - fraud/source.py
+      - fraud/ui.py
+      - data/captured_ai.json
+      - static/Inter-Bold.ttf
+      - static/Inter-Medium.ttf
+      - static/Inter-Regular.ttf
+      - static/Inter-SemiBold.ttf
+      - static/JetBrainsMono-Medium.ttf
+      - static/JetBrainsMono-Regular.ttf

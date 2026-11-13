@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Card Fraud Analyst Console on Snowflake</title>
+  <meta name="description" content="An interactive Streamlit console for card-fraud operations on Snowflake: a live scored transaction feed, an explainable alert queue, case review with Cortex AI, and threshold tuning. Try it in your browser with synthetic data." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <div class="nav-logo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        Card Fraud Console
+      </a>
+      <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul class="nav-links" role="list">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#tour">Tour</a></li>
+        <li><a href="#modes">Two modes</a></li>
+        <li><a href="#run">Run it</a></li>
+        <li><a href="try/">Try it now</a></li>
+        <li><a href="https://github.com/sfc-gh-jacho/sfguide-card-fraud-console">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero" id="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Financial Services · Payments · Fraud Risk
+      </div>
+      <h1>Card Fraud <span>Analyst Console</span></h1>
+      <p>Watch payments arrive and get scored as they land, work an explainable alert queue, review each case with an AI briefing, and tune the threshold that balances fraud caught against good customers interrupted.</p>
+      <div class="hero-ctas">
+        <a href="try/" class="btn btn-primary">Try it in your browser</a>
+        <a href="#tour" class="btn btn-ghost">See the tour</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-val">0</div><div class="hero-stat-label">Accounts Needed to Try</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">54K</div><div class="hero-stat-label">Synthetic Payments</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">10</div><div class="hero-stat-label">Explainable Signals</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">~20 min</div><div class="hero-stat-label">Live Setup</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-label">The problem</div>
+          <h2>Every Decline Is a Trade-off</h2>
+          <p>Card fraud teams must stop stolen-card spending within seconds, explain each decision, and avoid declining good customers who are simply traveling or buying something new. This console shows how one governed copy of payments, cards and merchants can support the whole loop: scoring, investigating, deciding and tuning.</p>
+        </div>
+        <div class="pipeline reveal">
+          <div class="pipeline-card"><div class="pipeline-step grad-1">1</div><h3>Score</h3><p>Every payment is scored as it arrives, from named signals computed in SQL.</p></div>
+          <div class="pipeline-card"><div class="pipeline-step grad-3">2</div><h3>Investigate</h3><p>An alert queue sorted by risk, with the exact reasons behind each score.</p></div>
+          <div class="pipeline-card"><div class="pipeline-step grad-4">3</div><h3>Decide</h3><p>A Cortex AI briefing for each case, then block, confirm or clear, with an audit trail.</p></div>
+          <div class="pipeline-card"><div class="pipeline-step grad-2">4</div><h3>Tune</h3><p>See fraud caught, customers declined and team workload at every threshold.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tour" class="bg-alt">
+      <div class="container narrow">
+        <div class="section-header reveal">
+          <div class="section-label">Tour</div>
+          <h2>The Finished Console</h2>
+          <p>These are screenshots of the running app in sample-data mode, the same version you can open in your browser. Every cardholder, card, merchant and payment is synthetic.</p>
+        </div>
+
+        <figure class="shot reveal">
+          <img src="docs/images/01-overview.webp" width="1200" height="750" loading="lazy" alt="Overview with today's payment KPIs, a 30-day alert chart by pattern and the top alerts" />
+          <figcaption><span class="cap-tag">Overview</span><strong>The fraud desk at a glance.</strong> Today's payments, alerts, dollars at risk and approval rate, with 30 days of alerts by pattern. Counts describe this synthetic data set only.</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <img src="docs/images/02-feed.webp" width="1200" height="750" loading="lazy" alt="Live transaction feed replaying the day at 15:00 with scored payments and an hourly chart" />
+          <figcaption><span class="cap-tag">Step 1 · Live feed</span><strong>Payments scored as they land.</strong> Press Play to replay the day. Each payment gets a score the moment it arrives, and red dots mark the hours with alerts. In live mode the scores come from a SQL view built on time-window functions and HAVERSINE distance.</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <img src="docs/images/03-queue.webp" width="1200" height="750" loading="lazy" alt="Alert queue sorted by risk score with pattern filters" />
+          <figcaption><span class="cap-tag">Step 2 · Queue</span><strong>Highest risk first, by pattern.</strong> Card testing, account takeover, impossible travel and unusual location, each one filterable, with its status tracked as analysts work it.</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <img src="docs/images/04-case.webp" width="1200" height="750" loading="lazy" alt="Case review for an impossible-travel alert with signal breakdown and a map of coded metros" />
+          <figcaption><span class="cap-tag">Step 3 · Case</span><strong>Exactly why it was flagged.</strong> This card was used in person 3,700 km from its previous in-person payment 42 minutes earlier. Each signal shows its points, the map traces the jump, and Cortex AI_COMPLETE drafts a briefing that the analyst reviews before acting.</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <img src="docs/images/05-tuning.webp" width="1200" height="750" loading="lazy" alt="Threshold tuning with fraud caught and good payments declined plotted by threshold" />
+          <figcaption><span class="cap-tag">Step 4 · Tuning</span><strong>The trade-off, made visible.</strong> Drag the threshold to see fraud dollars caught against good payments declined and alerts per day, measured on 30 days of synthetic labeled history.</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <img src="docs/images/06-patterns.webp" width="1200" height="750" loading="lazy" alt="Patterns page with alerts by pattern, a common point of purchase table and an AI summary of analyst notes" />
+          <figcaption><span class="cap-tag">Step 5 · Patterns</span><strong>Find where the card details were stolen.</strong> Fourteen of today's alerted cards were used at the same fuel station in the last 30 days, which points to a possible compromised merchant. Cortex AI_AGG summarizes what analysts have been seeing across all the case notes.</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <img src="docs/images/07-governance.webp" width="1200" height="750" loading="lazy" alt="Governance page viewing alerts as the Auditor role with names, card numbers and emails masked" />
+          <figcaption><span class="cap-tag">Governance</span><strong>Sensitive card data, masked by role.</strong> Viewed as an auditor, cardholder names, card digits and emails are masked. In live mode masking policies on the tables enforce this for every tool, and every case action is written to an audit table.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="modes">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-label">Two modes</div>
+          <h2>Click Around First, Connect Later</h2>
+          <p>The same Streamlit code runs both ways, so a business lead can explore it today and a technical team can run it on real infrastructure tomorrow.</p>
+        </div>
+        <div class="mode-grid reveal">
+          <div class="mode-card">
+            <h3>Sample data, in your browser</h3>
+            <ul>
+              <li>No Snowflake account, login or install</li>
+              <li>Python runs in the browser with <a href="https://github.com/whitphx/stlite">stlite</a></li>
+              <li>Scores are computed with the same signals as the SQL view</li>
+              <li>AI outputs are <strong>captured from a real Cortex run</strong> and labeled</li>
+            </ul>
+            <p style="margin-top:16px"><a href="try/" class="btn btn-primary">Try it now</a></p>
+          </div>
+          <div class="mode-card">
+            <h3>Live, in your Snowflake account</h3>
+            <ul>
+              <li>Deployed as Streamlit in Snowflake</li>
+              <li>Scores from the <code>TXN_SCORED</code> SQL view</li>
+              <li>Live Cortex <code>AI_COMPLETE</code> and <code>AI_AGG</code></li>
+              <li>Masking policies on cardholder and card fields</li>
+              <li>Case actions written to Snowflake</li>
+            </ul>
+            <p style="margin-top:16px"><a href="#run" class="btn btn-ghost" style="color:var(--navy);border-color:var(--border)">Set it up</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="run" class="bg-alt">
+      <div class="container narrow">
+        <div class="section-header reveal">
+          <div class="section-label">Run it live</div>
+          <h2>Deploy to Your Own Account</h2>
+        </div>
+        <ul class="checklist reveal">
+          <li><strong>Prerequisites:</strong> Enterprise Edition (masking policies), Cortex AI functions in your region, a compute pool for Streamlit's container runtime, and an external access integration for PyPI.</li>
+          <li><strong>1. Run the setup script.</strong> Run Steps 1–4 of <a href="sql/fraud_setup.sql" download>sql/fraud_setup.sql</a> in a Snowsight worksheet. They create <code>FRAUD_DEMO_DB</code>, an XSMALL warehouse, empty tables with policies attached, the <code>TXN_SCORED</code> view and three audience roles. A least-privilege option is included at the top.</li>
+          <li><strong>2. Deploy the app.</strong> Clone the repo, set your compute pool and integration names in <code>snowflake.yml</code>, then run <code>snow streamlit deploy --replace</code>.</li>
+          <li><strong>3. Load the data.</strong> Open the app, go to <em>About this example</em> and select <strong>Load synthetic data</strong>.</li>
+          <li><strong>4. Clean up.</strong> Uncomment and run Step 6 of the script to remove everything.</li>
+        </ul>
+        <div class="callout reveal">Measured on an XSMALL warehouse: setup and the data load take well under a minute of compute, and scoring all 54,000 payments in the view takes under a second. Each Cortex call takes a few seconds and a few thousand tokens. The Streamlit container uses its compute pool while the app is open.</div>
+      </div>
+    </section>
+
+    <section id="conclusion">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-label">Snowflake capabilities</div>
+          <h2>What Each Step Uses</h2>
+        </div>
+        <div class="cortex-grid reveal">
+          <div class="cortex-card"><h3>Streamlit in Snowflake</h3><p>The console runs next to the data, with the Snowflake session built in.</p></div>
+          <div class="cortex-card"><h3>Window functions and HAVERSINE</h3><p>Card testing, velocity and impossible travel, scored in one SQL view.</p></div>
+          <div class="cortex-card"><h3>Cortex AI_COMPLETE and AI_AGG</h3><p>Grounded case briefings and a summary across every analyst note.</p></div>
+          <div class="cortex-card"><h3>Masking policies</h3><p>Cardholder and card fields masked by role in every tool.</p></div>
+        </div>
+        <div class="doc-links reveal">
+          <h3>Learn more in the Snowflake documentation</h3>
+          <div class="doc-grid">
+            <a href="https://docs.snowflake.com/en/developer-guide/streamlit/about-streamlit" target="_blank" rel="noopener">Streamlit in Snowflake →</a>
+            <a href="https://docs.snowflake.com/en/sql-reference/functions-window-syntax" target="_blank" rel="noopener">Window Functions →</a>
+            <a href="https://docs.snowflake.com/en/sql-reference/functions/haversine" target="_blank" rel="noopener">HAVERSINE →</a>
+            <a href="https://docs.snowflake.com/en/sql-reference/functions/ai_complete" target="_blank" rel="noopener">AI_COMPLETE →</a>
+            <a href="https://docs.snowflake.com/en/sql-reference/functions/ai_agg" target="_blank" rel="noopener">AI_AGG →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Console</h4>
+          <a href="try/">Try it in your browser</a>
+          <a href="#tour">Tour</a>
+          <a href="#run">Run it live</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="sql/fraud_setup.sql" download>Download setup SQL</a>
+          <a href="https://github.com/sfc-gh-jacho/sfguide-card-fraud-console">GitHub Repository</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-disclaimer">Code licensed under <a href="https://github.com/sfc-gh-jacho/sfguide-card-fraud-console/blob/main/LICENSE">Apache 2.0</a>. Illustrative example provided as-is; not an official Snowflake product, not supported by Snowflake Support, and not a production fraud system. All cardholders, cards, merchants, payments and fraud labels are synthetic, locations are coded metros, and card numbers are display-only on the 400000 test BIN with only the last four digits stored. Signals and weights are simplified; counts and catch rates describe this synthetic data set only and are not performance claims. The in-browser version loads stlite and Pyodide from the jsDelivr CDN; this landing page loads no third-party resources.</p>
+        <span class="snow-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="3.3" y1="7" x2="20.7" y2="17"/><line x1="3.3" y1="17" x2="20.7" y2="7"/></svg>
+          Built with Streamlit in Snowflake
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

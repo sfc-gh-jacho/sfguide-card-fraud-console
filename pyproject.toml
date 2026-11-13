@@ -1,0 +1,10 @@
+[project]
+name = "card-fraud-console"
+version = "1.0.0"
+description = "Synthetic-data card fraud analyst console for Streamlit in Snowflake"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit[snowflake]==1.65.0",
+    "snowflake-connector-python[pandas]>=3.3.0",
+    "altair>=5",
+]

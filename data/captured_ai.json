@@ -1,0 +1,50 @@
+{
+  "_note": "Captured from real Snowflake Cortex calls made by this app in live mode on synthetic data: AI_COMPLETE (llama3.3-70b, temperature 0) for alert explanations and AI_AGG for the pattern summary. Output can differ between runs and models.",
+  "captured_on": "2026-11-13",
+  "explanations": {
+    "T0052576": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The payment of $642.00 is significantly higher than the card's typical spend of $63.99, and there were multiple small transactions under $2 in the last 30 minutes.\n* What could be an innocent explanation: The customer may have made a legitimate large purchase online, and the small transactions could be related to a payment system test or a subscription service.\n* What the analyst should check with the customer: The analyst should verify with the customer if they made the $642.00 payment at the electronics merchant and if they recognize the series of small transactions on 2026-11-10."
+    },
+    "T0053104": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The payment of $918.00 is significantly higher than the card's typical spend of $60.50, and it was made in person over 500 km from the cardholder's home.\n* What could be an innocent explanation: The cardholder may have been traveling and made a large purchase, or they may have bought a gift or an item for someone else.\n* What the analyst should check with the customer: The analyst should verify with the customer if they were indeed in METRO_J at the time of the payment and if they authorized the $918.00 transaction at the electronics merchant."
+    },
+    "T0052736": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The payment of $508.66 at an electronics merchant in person in METRO_I, which is more than 500 km from the card's home location of METRO_B, and the high risk score of 72.\n* What could be an innocent explanation: The cardholder may have been traveling and made the purchase in person, or the cardholder may have a legitimate reason for buying electronics at a high value.\n* What the analyst should check with the customer: The analyst should verify with the customer if they were indeed in METRO_I on 2026-11-10 and if the purchase of $508.66 at the electronics merchant was legitimate, especially considering another large purchase of $579.60 was made in METRO_J just 20 minutes prior."
+    },
+    "T0052233": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The payment of $500.00 is significantly higher than the card's typical spend of $46.13, and it was made online at 02:05, which is an unusual hour.\n* What could be an innocent explanation: The customer may have been purchasing gift cards as a legitimate gift or for personal use, and the online payment from an unfamiliar device could be due to the customer using a new device or a public computer.\n* What the analyst should check with the customer: The analyst should verify with the customer if they authorized the $500.00 gift card purchase online at 02:05 on 2026-11-10, and if they can explain the unusual payment amount and device used."
+    },
+    "T0052234": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The payment of $500.00 is 10x or more above the card's typical spend, and it was made online from a device the customer hasn't used before, between midnight and 5 a.m.\n* What could be an innocent explanation: The customer may have been purchasing gift cards as presents or for personal use, and the unusual time and device could be due to travel or a one-time change in behavior.\n* What the analyst should check with the customer: The analyst should verify with the customer if they authorized the $500.00 gift card purchase online at 02:21 on 2026-11-10, and if the transaction was made from a new device or location."
+    },
+    "T0052567": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The small payment amount of $1.25 and the pattern of three or more charges under $2 in a short time frame, which is flagged as card testing.\n* What could be an innocent explanation: The customer may be making legitimate small purchases online, possibly testing a new payment method or making microtransactions.\n* What the analyst should check with the customer: The analyst should verify with the customer if they authorized the recent small online transactions, especially the ones on 2026-11-10, to confirm if the activity is legitimate or potentially fraudulent."
+    },
+    "T0052573": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: Multiple low-value transactions ($1.10, $1.00, $1.49, $0.99, $1.25) in a short time frame, which triggered a \"Card testing\" pattern.\n* What could be an innocent explanation: The customer may be making multiple small purchases online, which is unusual for their typical payment amount of $63.99, but could be legitimate.\n* What the analyst should check with the customer: The analyst should verify with the customer if they made the recent string of low-value online transactions, especially the ones on 2026-11-10, to confirm whether the activity is legitimate or potentially fraudulent."
+    },
+    "T0052220": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The payment of $1,480.00 at an electronics merchant in a different location (METRO_G) than the card's home location (METRO_E), especially at 01:12, is unusual due to the high amount, late hour, and distance from home.\n* What could be an innocent explanation: The cardholder may have been traveling, as indicated by the $410.00 travel online payment on 11-08, and made the electronics purchase during their trip.\n* What the analyst should check with the customer: The analyst should verify with the customer if they were indeed in METRO_G at the time of the transaction and if they authorized the $1,480.00 payment to the electronics merchant."
+    },
+    "T0052506": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The payment of $465.00 is 10x or more above the card's typical spend of $44.60, and it's an online payment from a device the customer hasn't used before.\n* What could be an innocent explanation: The customer may have purchased an electronic item online for a legitimate purpose, such as a gift or a personal item, and may have used a new device to make the purchase.\n* What the analyst should check with the customer: The analyst should verify with the customer if they authorized the $465.00 payment to the electronics merchant and if they used a new device to make the payment."
+    },
+    "T0052938": {
+      "model": "llama3.3-70b",
+      "text": "* What looks unusual: The payment of $539.00 is significantly higher than the card's typical spend of $47.00 and was made online from an unfamiliar device.\n* What could be an innocent explanation: The customer may have made a legitimate large purchase of electronics online, and the device used could be a new or borrowed one.\n* What the analyst should check with the customer: The analyst should verify with the customer if they authorized the $539.00 payment to the electronics merchant and if the device used for the transaction is indeed theirs."
+    }
+  },
+  "patterns": {
+    "function": "AI_AGG",
+    "text": "\u2022 Confirmed fraud patterns: purchases made from an unrecognized phone, online orders shipped to a new address, card used in a city the customer has never visited, and gift card purchases while the customer was asleep.\n\u2022 False positives tended to be large purchases of electronics or gift cards that were confirmed by the customer as legitimate.\n\u2022 Analysts should watch for transactions with new or unrecognized devices, especially those involving gift card purchases or online orders shipped to unfamiliar addresses."
+  }
+}
